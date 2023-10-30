@@ -22,7 +22,7 @@ def generate_frames():
                 stream.seek(0)
                 yield (b"--frame\r\n"
                         b"Content-Type: image/jpeg\r\n\r\n" + stream.read() + b"\r\n")
-                stream.seek(0)
+                stream.seek(1)
                 stream.truncate()
 
 @app.route('/video')
