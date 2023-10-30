@@ -31,7 +31,7 @@ def video():
 
     if not streaming:
         camera = Picamera2()
-        camera.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
+        camera.configure(camera.create_video_configuration(main={"size": (640, 480)}))
         streaming = True
 
     connection_count += 1
