@@ -1,6 +1,8 @@
 import io
-import picamera
 from flask import Flask, Response
+from picamera2 import Picamera2
+from picamera2.outputs import FileOutput
+from picamera2.encoders import JpegEncoder
 
 app = Flask(__name__)
 camera = None
@@ -9,24 +11,27 @@ connection_count = 0  # Counter to monitor active connections
 
 def generate_frames():
     global camera, streaming
+
     while streaming:
         if camera is not None:
             with io.BytesIO() as stream:
-                for _ in camera.capture_continuous(stream, format="jpeg", use_video_port=True):
-                    stream.seek(0)
-                    yield (b"--frame\r\n"
-                           b"Content-Type: image/jpeg\r\n\r\n" + stream.read() + b"\r\n")
-                    stream.seek(0)
-                    stream.truncate()
+                output = FileOutput(stream)
+                camera.start_recording(JpegEncoder(), output)
+
+                # for _ in camera.capture_continuous(stream, format="jpeg", use_video_port=True):
+                stream.seek(0)
+                yield (b"--frame\r\n"
+                        b"Content-Type: image/jpeg\r\n\r\n" + stream.read() + b"\r\n")
+                stream.seek(0)
+                stream.truncate()
 
 @app.route('/video')
 def video():
     global camera, streaming, connection_count
 
     if not streaming:
-        camera = picamera.PiCamera()
-        camera.resolution = (640, 480)
-        camera.framerate = 30
+        camera = PiCamera2()
+        camera.configure(picam2.create_video_configuration(main={"size": (640, 480)}))
         streaming = True
 
     connection_count += 1
@@ -38,7 +43,8 @@ def stop():
 
     if streaming:
         if camera is not None:
-            camera.close()
+            camera.stop()
+            camera.stop_encoder()
         streaming = False
     connection_count = 0
 
