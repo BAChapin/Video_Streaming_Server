@@ -20,7 +20,7 @@ def generate_video_segment(segment):
     while True:
         command = [
             'ffmpeg',
-            '-s', '1920x1080',  # Set the video resolution
+            '-s', '640x580',  # Set the video resolution
             '-i', '/dev/video0',  # Input source (Raspberry Pi camera module)
             '-f', 'mpegts',
             '-c:v', 'h264_omx',
