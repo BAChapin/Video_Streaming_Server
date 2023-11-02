@@ -12,7 +12,7 @@ def video_segment(segment):
     return Response(generate_video_segment(segment), content_type='video/mp2t')
 
 def generate_m3u8():
-    m3u8 = f'#EXTM3U\n#EXT-X-VERSION:3\n#EXT-X-TARGETDURATION:10\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:10.0,\n/video/0.ts\n'
+    m3u8 = f'#EXTM3U\n#EXT-X-VERSION:3\n#EXT-X-TARGETDURATION:10\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:10.0,\n/video/0\n'
     return m3u8
 
 def generate_video_segment(segment):
