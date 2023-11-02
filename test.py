@@ -8,6 +8,6 @@ video_config = picam2.create_video_configuration({"size": (1920, 1080)},
                                           controls={"FrameDurationLimits": (33333, 33333)})
 picam2.configure(video_config)
 encoder = H264Encoder(16000000, False, 10)	# bitrate, repeat, iperiod
-picam2.start_recording(encoder, 'test.h264')
+picam2.start_recording(encoder, 'test.mp4')
 sleep(5)
 picam2.stop_recording()
