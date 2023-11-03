@@ -7,7 +7,7 @@ picam2 = Picamera2()
 video_config = picam2.create_video_configuration()
 picam2.configure(video_config)
 
-encoder = H264Encoder(biterate=16000, qp=30)
+encoder = H264Encoder(bitrate=16000, qp=30)
 
 output = FfmpegOutput("-f hls -hls_time 4 -hls_list_size 5 -hls_flags delete_segments -hls_allow_cache 0 stream.m3u8")
 
