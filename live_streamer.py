@@ -28,6 +28,6 @@ def video_segment(segment):
 
 if __name__ == '__main__':
     picam2.start_recording(encoder, output)
-    time.sleep(30)
-    picam2.stop_recording()
-    # app.run(host='0.0.0.0', port=5000, debug=True)
+    # time.sleep(30)
+    # picam2.stop_recording()
+    app.run(host='0.0.0.0', port=5000, debug=True)
