@@ -12,7 +12,7 @@ picam2.configure(video_config)
 
 encoder = H264Encoder(bitrate=16000, qp=30)
 
-output = FfmpegOutput("-f hls -hls_time 5 -hls_list_size 2 -hls_flags delete_segments -hls_allow_cache 5 stream.m3u8")
+output = FfmpegOutput("-f hls -hls_time 5 -hls_list_size 10 -hls_flags delete_segments -hls_allow_cache 5 stream.m3u8")
 
 @app.route('/video')
 def video():
