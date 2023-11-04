@@ -7,7 +7,7 @@ from picamera2.outputs import FfmpegOutput
 app = Flask(__name__)
 
 picam2 = Picamera2()
-video_config = picam2.create_video_configuration()
+video_config = picam2.create_video_configuration(main={"size": (640, 480)})
 picam2.configure(video_config)
 
 encoder = H264Encoder(bitrate=16000, qp=30)
