@@ -6,13 +6,7 @@ from picamera2.outputs import FfmpegOutput
 
 app = Flask(__name__)
 
-picam2 = Picamera2()
-# video_config = picam2.create_video_configuration(main={"size": (640, 480)})
-# picam2.configure(video_config)
-
-# encoder = H264Encoder(bitrate=16000, qp=30)
-
-# output = FfmpegOutput("-f hls -hls_time 5 -hls_list_size 10 -hls_flags delete_segments -hls_allow_cache 5 stream.m3u8")
+picam2 = None
 
 @app.route('/video')
 def video():
@@ -33,6 +27,15 @@ if __name__ == '__main__':
     # picam2.stop_recording()
     try:
         app.run(host='0.0.0.0', port=5000, debug=True)
+
+        picam2 = Picamera2()
+
+        video_config = picam2.create_video_configuration(main={"size": (640, 480)})
+        picam2.configure(video_config)
+
+        encoder = H264Encoder(bitrate=16000, qp=30)
+
+        output = FfmpegOutput("-f hls -hls_time 5 -hls_list_size 10 -hls_flags delete_segments -hls_allow_cache 5 stream.m3u8")
     finally:
         picam2.stop()
         picam2.close()
