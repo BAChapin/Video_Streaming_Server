@@ -27,6 +27,8 @@ def video_segment(segment):
     yield data
 
 if __name__ == '__main__':
+    picam2.stop()
+    picam2.close()
     picam2.start_recording(encoder, output)
     # time.sleep(30)
     # picam2.stop_recording()
