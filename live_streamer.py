@@ -6,8 +6,6 @@ from picamera2.outputs import FfmpegOutput
 
 app = Flask(__name__)
 
-picam2 = None
-
 @app.route('/video')
 def video():
     m3u8 = f'#EXTM3U\n#EXT-X-VERSION:3\n#EXT-X-TARGETDURATION:5\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:5,\n/video/0\n'
