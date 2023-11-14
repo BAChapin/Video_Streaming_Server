@@ -22,7 +22,7 @@ def startCamera():
 
     output = FfmpegOutput("-f hls -hls_time 5 -hls_list_size 10 -hls_flags delete_segments -hls_allow_cache 5 stream.m3u8")
     sleep(1)
-    
+
     picam2.start_recording(encoder, output)
 
 @app.route('/video')
@@ -53,8 +53,9 @@ if __name__ == '__main__':
     streamThread = Thread(target=startCamera)
     streamThread.start()
     
-    try:
-        app.run(host='0.0.0.0', port=5000, debug=True)
-    finally:
-        picam2.stop_recording()
-        picam2.close()
+    # try:
+    #     app.run(host='0.0.0.0', port=5000, debug=True)
+    # finally:
+    sleep(10)
+    picam2.stop_recording()
+    picam2.close()
