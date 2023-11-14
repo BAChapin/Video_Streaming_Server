@@ -35,5 +35,5 @@ if __name__ == '__main__':
 
         app.run(host='0.0.0.0', port=5000, debug=True)
     finally:
-        picam2.stop()
+        picam2.stop_recording()
         picam2.close()
