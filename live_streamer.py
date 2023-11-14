@@ -8,23 +8,21 @@ app = Flask(__name__)
 
 picam2 = None
 
-@app.route('/video')
-def video():
-    picam2.start_recording(encoder, output)
+# @app.route('/video')
+# def video():
+#     picam2.start_recording(encoder, output)
 
-    m3u8 = f'#EXTM3U\n#EXT-X-VERSION:3\n#EXT-X-TARGETDURATION:5\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:5,\n/video/0\n'
-    return Response(m3u8, content_type='Application/vnd.apple.mpegurl')
+#     m3u8 = f'#EXTM3U\n#EXT-X-VERSION:3\n#EXT-X-TARGETDURATION:5\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:5,\n/video/0\n'
+#     return Response(m3u8, content_type='Application/vnd.apple.mpegurl')
 
-@app.route('/video/<segment>')
-def video_segment(segment):
-    segment_number = int(segment)
-    with open(f'stream{segment_number}.ts', 'rb') as segment_file:
-        data = segment_file.read()
-    yield data
+# @app.route('/video/<segment>')
+# def video_segment(segment):
+#     segment_number = int(segment)
+#     with open(f'stream{segment_number}.ts', 'rb') as segment_file:
+#         data = segment_file.read()
+#     yield data
 
 if __name__ == '__main__':
-    # time.sleep(30)
-    # picam2.stop_recording()
     try:
         picam2 = Picamera2()
 
