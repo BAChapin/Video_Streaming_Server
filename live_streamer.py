@@ -1,4 +1,5 @@
 import time
+from time import sleep
 from flask import Flask, Response
 from picamera2 import Picamera2
 from picamera2.encoders import H264Encoder
@@ -20,6 +21,8 @@ def video_segment(segment):
 
 if __name__ == '__main__':
     picam2 = Picamera2()
+    picam2.start()
+    sleep(1)
 
     # video_config = picam2.create_video_configuration(main={"size": (640, 480)})
     # picam2.configure(video_config)
