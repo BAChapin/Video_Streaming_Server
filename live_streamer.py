@@ -26,8 +26,6 @@ if __name__ == '__main__':
     # time.sleep(30)
     # picam2.stop_recording()
     try:
-        app.run(host='0.0.0.0', port=5000, debug=True)
-
         picam2 = Picamera2()
 
         video_config = picam2.create_video_configuration(main={"size": (640, 480)})
@@ -36,6 +34,8 @@ if __name__ == '__main__':
         encoder = H264Encoder(bitrate=16000, qp=30)
 
         output = FfmpegOutput("-f hls -hls_time 5 -hls_list_size 10 -hls_flags delete_segments -hls_allow_cache 5 stream.m3u8")
+
+        app.run(host='0.0.0.0', port=5000, debug=True)
     finally:
         picam2.stop()
         picam2.close()
