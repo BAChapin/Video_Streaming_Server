@@ -19,17 +19,17 @@ def video_segment(segment):
     yield data
 
 if __name__ == '__main__':
+    picam2 = Picamera2()
+
+    video_config = picam2.create_video_configuration(main={"size": (640, 480)})
+    picam2.configure(video_config)
+
+    encoder = H264Encoder(bitrate=16000, qp=30)
+
+    output = FfmpegOutput("-f hls -hls_time 5 -hls_list_size 10 -hls_flags delete_segments -hls_allow_cache 5 stream.m3u8")
+    picam2.start_recording(encoder, output)
+
     try:
-        picam2 = Picamera2()
-
-        video_config = picam2.create_video_configuration(main={"size": (640, 480)})
-        picam2.configure(video_config)
-
-        encoder = H264Encoder(bitrate=16000, qp=30)
-
-        output = FfmpegOutput("-f hls -hls_time 5 -hls_list_size 10 -hls_flags delete_segments -hls_allow_cache 5 stream.m3u8")
-        picam2.start_recording(encoder, output)
-
         app.run(host='0.0.0.0', port=5000, debug=True)
     finally:
         picam2.stop_recording()
